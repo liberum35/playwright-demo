@@ -1,0 +1,31 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://demoqa.com/webtables');
+  await page.getByRole('button', { name: 'Add' }).click();
+  await expect(page.getByPlaceholder('First Name')).toBeEmpty();
+  await expect(page.getByPlaceholder('Last Name')).toBeEmpty();
+  await expect(page.getByPlaceholder('name@example.com')).toBeEmpty();
+  await expect(page.getByPlaceholder('Age')).toBeEmpty();
+  await expect(page.getByPlaceholder('Salary')).toBeEmpty();
+  await expect(page.getByPlaceholder('Department')).toBeEmpty();
+  await page.getByPlaceholder('First Name').click();
+  await page.getByPlaceholder('First Name').fill('Name');
+  await page.getByPlaceholder('Last Name').click();
+  await page.getByPlaceholder('Last Name').fill('LastName');
+  await page.getByPlaceholder('name@example.com').click();
+  await page.getByPlaceholder('name@example.com').fill('test@youpmail.com');
+  await page.getByPlaceholder('Age').click();
+  await page.getByPlaceholder('Age').fill('30');
+  await page.getByPlaceholder('Salary').click();
+  await page.getByPlaceholder('Salary').fill('5000');
+  await page.getByPlaceholder('Department').click();
+  await page.getByPlaceholder('Department').fill('QA');
+  await page.getByRole('button', { name: 'Submit' }).click();
+  await expect(page.getByRole('gridcell', { name: 'Name', exact: true })).toBeVisible();
+  await expect(page.getByRole('gridcell', { name: 'LastName' })).toBeVisible();
+  await expect(page.getByRole('gridcell', { name: '30' })).toBeVisible();
+  await expect(page.getByRole('gridcell', { name: 'test@youpmail.com' })).toBeVisible();
+  await expect(page.getByRole('gridcell', { name: '5000' })).toBeVisible();
+  await expect(page.getByRole('gridcell', { name: 'QA' })).toBeVisible();
+});
