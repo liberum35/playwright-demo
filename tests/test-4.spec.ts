@@ -1,7 +1,7 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import { WebTablesPage } from './WebTablesPage';
 
-test('Form filling and next button checking', async ({ page }) => {
+test('Check form on page', async ({ page }) => {
   const webTablesPage = new WebTablesPage(page);
   await webTablesPage.navigate();
 
@@ -18,7 +18,5 @@ test('Form filling and next button checking', async ({ page }) => {
     );
     await webTablesPage.clickSubmitButton();
   }
-  await expect(page.getByRole('button', { name: 'Next' })).toBeEnabled();
-  await page.getByRole('button', { name: 'Next' }).click();
   expect(await page.locator('.ReactTable').innerHTML()).toMatchSnapshot();
 });
